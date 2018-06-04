@@ -1,0 +1,33 @@
+#!/usr/bin/env python
+# coding:utf-8
+__author__ = 'stone'
+__date__ = '2017/11/6'
+
+import pexpect
+
+host = '192.168.0.1'
+user = 'root'
+password = '123456'
+port = '2222'
+
+timeout = 3
+
+ssh = pexpect.spawn("ssh", [user + "@" + host, "-p", port])
+ssh.timeout = timeout
+ssh.maxread = 1  # 关闭缓存  # 此函数用来设置合适的窗口大小
+
+# mac 获取终端大小
+import curses
+screen = curses.initscr()
+height, width = screen.getmaxyx()
+
+try:
+    ssh.expect(['(yes/no)?', pexpect.EOF, pexpect.TIMEOUT])
+    ssh.sendline('yes')
+    ssh.expect(['password:'])
+    ssh.sendline(password)
+    ssh.setwinsize(height, width)  # 根据终端大小调整用户交互终端大小
+    ssh.interact()  # 用户交互
+except pexpect.EOF as e:
+    ssh.close()
+    raise e

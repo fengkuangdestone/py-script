@@ -1,0 +1,20 @@
+#!/usr/bin/env python
+# coding=utf-8
+
+import urllib2,json
+
+# 迅雷url
+i='thunder://QUFodHRwOi8vc291cmNlLTgyNzIyLm9zcy1jbi1iZWlqaW5nLmFsaXl1bmNzLmNvbS9qZGsvamRrLTh1OTItbGludXgteDY0LnRhci5nelpa'
+url = 'http://tool.lu/urlconvert/ajax.html?link=%s' %i
+
+def getHtml(url):
+	req = urllib2.Request(url)
+	req.add_header('User-agent','Opera/8.0 (Windows NT 5.1; U; en)')
+	page = urllib2.urlopen(req)
+	data = json.load(page)
+	if data['status']:
+			return data['text']
+	else:
+			return data
+
+print getHtml(url)

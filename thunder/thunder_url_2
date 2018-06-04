@@ -1,0 +1,16 @@
+#!/usr/bin/env python
+# coding=utf-8
+import base64
+
+# 迅雷url
+th = "thunder://QUFodHRwOi8vc291cmNlLTgyNzIyLm9zcy1jbi1iZWlqaW5nLmFsaXl1bmNzLmNvbS9qZGsvamRrLTh1OTItbGludXgteDY0LnRhci5nelpa"
+
+if (th.find("thunder://") != -1):
+		th = th.replace("thunder://", "")
+		decodeurl = base64.b64decode(th)
+		# urls = decodeurl[2:len(decodeurl)]
+		urls = decodeurl.replace("AA","")
+		urls = urls.replace("ZZ","")
+		print u"\n\n转换结果:\n" + urls
+else:
+		print u"\n\n错误提示:不是标准的迅雷下载地址!!"

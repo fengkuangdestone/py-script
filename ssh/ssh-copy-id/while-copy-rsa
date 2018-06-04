@@ -1,0 +1,8 @@
+#!/bin/bash
+while read line
+do
+  ip=`echo $line | awk '{print $1}'`
+  username=`echo $line | awk '{print $2}'`
+  password=`echo $line | awk '{print $3}'`
+  ./exp $ip $username $password
+done < ./hosts.txt
